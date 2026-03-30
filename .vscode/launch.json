@@ -6,21 +6,18 @@
     "configurations": [
         
         {
-            "name": "ecommerce_mobile_app",
-            "cwd": "ecommerce_mobile_app",
+            "name": "Ecommerce-Mobile-App",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "ecommerce_mobile_app (profile mode)",
-            "cwd": "ecommerce_mobile_app",
+            "name": "Ecommerce-Mobile-App (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "ecommerce_mobile_app (release mode)",
-            "cwd": "ecommerce_mobile_app",
+            "name": "Ecommerce-Mobile-App (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
