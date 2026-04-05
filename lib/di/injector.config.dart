@@ -13,7 +13,10 @@ import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
 import 'package:ecommerce_mobile_app/core/logging/app_logger.dart' as _i701;
 import 'package:ecommerce_mobile_app/core/logging/console_app_logger.dart'
     as _i314;
+import 'package:ecommerce_mobile_app/cubit/counter/counter_cubit.dart' as _i218;
 import 'package:ecommerce_mobile_app/di/third_party_module.dart' as _i498;
+import 'package:ecommerce_mobile_app/services/local/local_storage.dart'
+    as _i801;
 import 'package:ecommerce_mobile_app/services/remote/firebase_service.dart'
     as _i527;
 import 'package:firebase_auth/firebase_auth.dart' as _i59;
@@ -35,6 +38,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final thirdPartyModule = _$ThirdPartyModule();
+    gh.factory<_i218.CounterCubit>(() => _i218.CounterCubit());
     await gh.factoryAsync<_i460.SharedPreferences>(
       () => thirdPartyModule.sharedPreferences,
       preResolve: true,
@@ -62,6 +66,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i527.FirebaseService(
         gh<_i59.FirebaseAuth>(),
         gh<_i974.FirebaseFirestore>(),
+      ),
+    );
+    gh.lazySingleton<_i801.LocalStorage>(
+      () => _i801.LocalStorage(
+        gh<_i558.FlutterSecureStorage>(),
+        gh<_i460.SharedPreferences>(),
       ),
     );
     return this;

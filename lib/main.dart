@@ -1,5 +1,8 @@
+import 'package:ecommerce_mobile_app/core/logging/app_logger.dart';
 import 'package:ecommerce_mobile_app/di/injector.dart';
+import 'package:ecommerce_mobile_app/firebase_options.dart';
 import 'package:ecommerce_mobile_app/router/app_router.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,10 +10,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   try {
-    // Configure dependencies
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
     await configureDependencies();
   } catch (e) {
-    debugPrint('App initialization failed: $e');
+    if (getIt.isRegistered<AppLogger>()) {
+      getIt<AppLogger>().e('App initialization failed', error: e);
+    }
   }
 
   runApp(const MyApp());

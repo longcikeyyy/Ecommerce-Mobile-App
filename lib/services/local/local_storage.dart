@@ -1,31 +1,30 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@lazySingleton
 class LocalStorage {
-  final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
-  late SharedPreferences _sharedPreferences;
+  LocalStorage(this._secureStorage, this._sharedPreferences);
 
-  Future<void> init() async {
-    _sharedPreferences = await SharedPreferences.getInstance();
-  }
+  final FlutterSecureStorage _secureStorage;
+  final SharedPreferences _sharedPreferences;
 
-  /// Define the keys for the local storage
+  /// Keys for local storage
   static const String token = 'token';
   static const String user = 'user';
   static const String theme = 'theme';
   static const String language = 'language';
 
-  /// Define the methods for the local storage
-  Future<void> saveToken(String token) async {
-    await _secureStorage.write(key: token, value: token);
+  Future<void> saveToken(String value) async {
+    await _secureStorage.write(key: token, value: value);
   }
 
   Future<String> getToken() async {
     return await _secureStorage.read(key: token) ?? '';
   }
 
-  Future<void> saveTheme(String theme) async {
-    await _sharedPreferences.setString(theme, theme);
+  Future<void> saveTheme(String value) async {
+    await _sharedPreferences.setString(theme, value);
   }
 
   String getTheme() {
