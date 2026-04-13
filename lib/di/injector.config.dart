@@ -13,7 +13,11 @@ import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
 import 'package:ecommerce_mobile_app/core/logging/app_logger.dart' as _i701;
 import 'package:ecommerce_mobile_app/core/logging/console_app_logger.dart'
     as _i314;
+import 'package:ecommerce_mobile_app/cubit/address/address_cubit.dart' as _i782;
 import 'package:ecommerce_mobile_app/cubit/counter/counter_cubit.dart' as _i218;
+import 'package:ecommerce_mobile_app/cubit/home/home_cubit.dart' as _i977;
+import 'package:ecommerce_mobile_app/cubit/sign_in/sign_in_cubit.dart' as _i980;
+import 'package:ecommerce_mobile_app/cubit/sign_up/sign_up_cubit.dart' as _i963;
 import 'package:ecommerce_mobile_app/di/third_party_module.dart' as _i498;
 import 'package:ecommerce_mobile_app/services/local/local_storage.dart'
     as _i801;
@@ -72,6 +76,23 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i801.LocalStorage(
         gh<_i558.FlutterSecureStorage>(),
         gh<_i460.SharedPreferences>(),
+      ),
+    );
+    gh.factory<_i963.SignUpCubit>(
+      () =>
+          _i963.SignUpCubit(gh<_i527.FirebaseService>(), gh<_i701.AppLogger>()),
+    );
+    gh.factory<_i980.SignInCubit>(
+      () =>
+          _i980.SignInCubit(gh<_i527.FirebaseService>(), gh<_i701.AppLogger>()),
+    );
+    gh.factory<_i977.HomeCubit>(
+      () => _i977.HomeCubit(gh<_i527.FirebaseService>(), gh<_i701.AppLogger>()),
+    );
+    gh.factory<_i782.AddressCubit>(
+      () => _i782.AddressCubit(
+        gh<_i527.FirebaseService>(),
+        gh<_i701.AppLogger>(),
       ),
     );
     return this;
