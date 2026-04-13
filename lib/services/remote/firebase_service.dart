@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_mobile_app/models/response/address_response.dart';
 import 'package:ecommerce_mobile_app/models/response/category_response.dart';
+import 'package:ecommerce_mobile_app/models/response/product_response.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
@@ -59,6 +60,25 @@ class FirebaseService {
     }).toList();
   }
 
+  /// Fetch all top selling products from Firestore.
+  Future<List<ProductResponseModel>> getTopSellingProducts() async {
+    final snapshot = await _firebaseFirestore.collection('Top Selling').get();
+
+    return snapshot.docs.map((doc) {
+      final data = doc.data();
+      final oldPriceValue = data['oldPrice'];
+
+      return ProductResponseModel.fromJson({
+        'id': doc.id,
+        'name': data['name'] as String? ?? '',
+        'image': data['image'] as String? ?? '',
+        'price': data['price'] ?? 0,
+        'oldPrice': oldPriceValue is num ? oldPriceValue : null,
+        'isFavorite': data['isFavorite'] as bool? ?? false,
+      });
+    }).toList();
+  }
+
   /// Get current user UID.
   String get currentUid => _firebaseAuth.currentUser!.uid;
 
@@ -89,11 +109,11 @@ class FirebaseService {
         .doc(currentUid)
         .collection('address')
         .add({
-      'streetAddress': streetAddress,
-      'city': city,
-      'state': state,
-      'zipCode': zipCode,
-    });
+          'streetAddress': streetAddress,
+          'city': city,
+          'state': state,
+          'zipCode': zipCode,
+        });
   }
 
   /// Update an existing address.
@@ -110,10 +130,10 @@ class FirebaseService {
         .collection('address')
         .doc(addressId)
         .update({
-      'streetAddress': streetAddress,
-      'city': city,
-      'state': state,
-      'zipCode': zipCode,
-    });
+          'streetAddress': streetAddress,
+          'city': city,
+          'state': state,
+          'zipCode': zipCode,
+        });
   }
 }

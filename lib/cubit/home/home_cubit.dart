@@ -21,10 +21,39 @@ class HomeCubit extends Cubit<HomeState> {
       emit(state.copyWith(isLoading: false, categories: categories));
     } catch (e, st) {
       _logger.e('Failed to load categories', error: e, stackTrace: st);
-      emit(state.copyWith(
-        isLoading: false,
-        errorMessage: 'Failed to load categories.',
-      ));
+      emit(
+        state.copyWith(
+          isLoading: false,
+          errorMessage: 'Failed to load categories.',
+        ),
+      );
+    }
+  }
+
+  Future<void> loadTopSellingProducts() async {
+    emit(state.copyWith(isTopSellingLoading: true, topSellingErrorMessage: ''));
+
+    try {
+      final products = await _firebaseService.getTopSellingProducts();
+      _logger.i('Loaded ${products.length} top selling products');
+      emit(
+        state.copyWith(
+          isTopSellingLoading: false,
+          topSellingProducts: products,
+        ),
+      );
+    } catch (e, st) {
+      _logger.e(
+        'Failed to load top selling products',
+        error: e,
+        stackTrace: st,
+      );
+      emit(
+        state.copyWith(
+          isTopSellingLoading: false,
+          topSellingErrorMessage: 'Failed to load top selling products.',
+        ),
+      );
     }
   }
 }

@@ -21,6 +21,10 @@ mixin _$HomeState {
   String get errorMessage => throw _privateConstructorUsedError;
   List<CategoryResponseModel> get categories =>
       throw _privateConstructorUsedError;
+  bool get isTopSellingLoading => throw _privateConstructorUsedError;
+  String get topSellingErrorMessage => throw _privateConstructorUsedError;
+  List<ProductResponseModel> get topSellingProducts =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -38,6 +42,9 @@ abstract class $HomeStateCopyWith<$Res> {
     bool isLoading,
     String errorMessage,
     List<CategoryResponseModel> categories,
+    bool isTopSellingLoading,
+    String topSellingErrorMessage,
+    List<ProductResponseModel> topSellingProducts,
   });
 }
 
@@ -59,6 +66,9 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? isLoading = null,
     Object? errorMessage = null,
     Object? categories = null,
+    Object? isTopSellingLoading = null,
+    Object? topSellingErrorMessage = null,
+    Object? topSellingProducts = null,
   }) {
     return _then(
       _value.copyWith(
@@ -74,6 +84,18 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
                 ? _value.categories
                 : categories // ignore: cast_nullable_to_non_nullable
                       as List<CategoryResponseModel>,
+            isTopSellingLoading: null == isTopSellingLoading
+                ? _value.isTopSellingLoading
+                : isTopSellingLoading // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            topSellingErrorMessage: null == topSellingErrorMessage
+                ? _value.topSellingErrorMessage
+                : topSellingErrorMessage // ignore: cast_nullable_to_non_nullable
+                      as String,
+            topSellingProducts: null == topSellingProducts
+                ? _value.topSellingProducts
+                : topSellingProducts // ignore: cast_nullable_to_non_nullable
+                      as List<ProductResponseModel>,
           )
           as $Val,
     );
@@ -93,6 +115,9 @@ abstract class _$$HomeStateImplCopyWith<$Res>
     bool isLoading,
     String errorMessage,
     List<CategoryResponseModel> categories,
+    bool isTopSellingLoading,
+    String topSellingErrorMessage,
+    List<ProductResponseModel> topSellingProducts,
   });
 }
 
@@ -113,6 +138,9 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? errorMessage = null,
     Object? categories = null,
+    Object? isTopSellingLoading = null,
+    Object? topSellingErrorMessage = null,
+    Object? topSellingProducts = null,
   }) {
     return _then(
       _$HomeStateImpl(
@@ -128,6 +156,18 @@ class __$$HomeStateImplCopyWithImpl<$Res>
             ? _value._categories
             : categories // ignore: cast_nullable_to_non_nullable
                   as List<CategoryResponseModel>,
+        isTopSellingLoading: null == isTopSellingLoading
+            ? _value.isTopSellingLoading
+            : isTopSellingLoading // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        topSellingErrorMessage: null == topSellingErrorMessage
+            ? _value.topSellingErrorMessage
+            : topSellingErrorMessage // ignore: cast_nullable_to_non_nullable
+                  as String,
+        topSellingProducts: null == topSellingProducts
+            ? _value._topSellingProducts
+            : topSellingProducts // ignore: cast_nullable_to_non_nullable
+                  as List<ProductResponseModel>,
       ),
     );
   }
@@ -140,7 +180,11 @@ class _$HomeStateImpl implements _HomeState {
     this.isLoading = false,
     this.errorMessage = '',
     final List<CategoryResponseModel> categories = const [],
-  }) : _categories = categories;
+    this.isTopSellingLoading = false,
+    this.topSellingErrorMessage = '',
+    final List<ProductResponseModel> topSellingProducts = const [],
+  }) : _categories = categories,
+       _topSellingProducts = topSellingProducts;
 
   @override
   @JsonKey()
@@ -158,8 +202,24 @@ class _$HomeStateImpl implements _HomeState {
   }
 
   @override
+  @JsonKey()
+  final bool isTopSellingLoading;
+  @override
+  @JsonKey()
+  final String topSellingErrorMessage;
+  final List<ProductResponseModel> _topSellingProducts;
+  @override
+  @JsonKey()
+  List<ProductResponseModel> get topSellingProducts {
+    if (_topSellingProducts is EqualUnmodifiableListView)
+      return _topSellingProducts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_topSellingProducts);
+  }
+
+  @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, errorMessage: $errorMessage, categories: $categories)';
+    return 'HomeState(isLoading: $isLoading, errorMessage: $errorMessage, categories: $categories, isTopSellingLoading: $isTopSellingLoading, topSellingErrorMessage: $topSellingErrorMessage, topSellingProducts: $topSellingProducts)';
   }
 
   @override
@@ -174,6 +234,14 @@ class _$HomeStateImpl implements _HomeState {
             const DeepCollectionEquality().equals(
               other._categories,
               _categories,
+            ) &&
+            (identical(other.isTopSellingLoading, isTopSellingLoading) ||
+                other.isTopSellingLoading == isTopSellingLoading) &&
+            (identical(other.topSellingErrorMessage, topSellingErrorMessage) ||
+                other.topSellingErrorMessage == topSellingErrorMessage) &&
+            const DeepCollectionEquality().equals(
+              other._topSellingProducts,
+              _topSellingProducts,
             ));
   }
 
@@ -183,6 +251,9 @@ class _$HomeStateImpl implements _HomeState {
     isLoading,
     errorMessage,
     const DeepCollectionEquality().hash(_categories),
+    isTopSellingLoading,
+    topSellingErrorMessage,
+    const DeepCollectionEquality().hash(_topSellingProducts),
   );
 
   /// Create a copy of HomeState
@@ -199,6 +270,9 @@ abstract class _HomeState implements HomeState {
     final bool isLoading,
     final String errorMessage,
     final List<CategoryResponseModel> categories,
+    final bool isTopSellingLoading,
+    final String topSellingErrorMessage,
+    final List<ProductResponseModel> topSellingProducts,
   }) = _$HomeStateImpl;
 
   @override
@@ -207,6 +281,12 @@ abstract class _HomeState implements HomeState {
   String get errorMessage;
   @override
   List<CategoryResponseModel> get categories;
+  @override
+  bool get isTopSellingLoading;
+  @override
+  String get topSellingErrorMessage;
+  @override
+  List<ProductResponseModel> get topSellingProducts;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
