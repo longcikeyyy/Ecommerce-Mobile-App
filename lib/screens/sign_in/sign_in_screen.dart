@@ -1,4 +1,5 @@
 import 'package:ecommerce_mobile_app/core/assets_gen/assets.gen.dart';
+import 'package:ecommerce_mobile_app/router/route_name.dart';
 import 'package:ecommerce_mobile_app/screens/sign_in/widgets/social_button.dart';
 import 'package:ecommerce_mobile_app/shared/app_button.dart';
 import 'package:ecommerce_mobile_app/shared/app_text_field.dart';
@@ -6,6 +7,7 @@ import 'package:ecommerce_mobile_app/theme/app_colors.dart';
 import 'package:ecommerce_mobile_app/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -64,36 +66,36 @@ class _SignInScreenState extends State<SignInScreen> {
               SizedBox(height: 24.h),
               AppButton(text: 'Continue', onPressed: () {}),
               SizedBox(height: 20.h),
-              RichText(
-                text: TextSpan(
-                  style: AppTypography.bodyText2,
-                  children: [
-                    const TextSpan(text: "Don't have an Account ? "),
-                    TextSpan(
-                      text: 'Create One',
+              Row(
+                children: [
+                  Text("Don't have an Account ? ", style: AppTypography.bodyText2),
+                  GestureDetector(
+                    onTap: () => context.pushNamed(RouteName.signUpRoute),
+                    child: Text(
+                      'Create One',
                       style: AppTypography.bodyText2.copyWith(
                         color: AppColors.darkGrey,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               SizedBox(height: 40.h),
               SocialButton(
-                icon: Assets.icons.icApple.svg(width: 24.r, height: 24.r),
+                icon: Assets.icons.icApple.image(width: 24.r, height: 24.r),
                 label: 'Continue With Apple',
                 onPressed: () {},
               ),
               SizedBox(height: 16.h),
               SocialButton(
-                icon: Assets.icons.icApple.svg(width: 24.r, height: 24.r),
+                icon: Assets.icons.icGoogle.image(width: 24.r, height: 24.r),
                 label: 'Continue With Google',
                 onPressed: () {},
               ),
               SizedBox(height: 16.h),
               SocialButton(
-                icon: Assets.icons.icApple.svg(width: 24.r, height: 24.r),
+                icon: Assets.icons.icFacebook.image(width: 24.r, height: 24.r),
                 label: 'Continue With Facebook',
                 onPressed: () {},
               ),
