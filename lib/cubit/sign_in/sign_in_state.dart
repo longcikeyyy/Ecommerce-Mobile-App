@@ -8,5 +8,6 @@ class SignInState with _$SignInState {
     @Default(false) bool isLoading,
     @Default('') String errorMessage,
     @Default(false) bool isSuccess,
+    @Default(true) bool isShowFacebookSignIn,
   }) = _SignInState;
 }

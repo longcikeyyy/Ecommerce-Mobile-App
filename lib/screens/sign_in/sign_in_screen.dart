@@ -154,14 +154,28 @@ class _SignInScreenState extends State<SignInScreen> {
                       label: 'Continue With Google',
                       onPressed: () {},
                     ),
-                    SizedBox(height: 16.h),
-                    SocialButton(
-                      icon: Assets.icons.icFacebook.image(
-                        width: 24.r,
-                        height: 24.r,
-                      ),
-                      label: 'Continue With Facebook',
-                      onPressed: () {},
+                    BlocBuilder<SignInCubit, SignInState>(
+                      buildWhen: (prev, curr) =>
+                          prev.isShowFacebookSignIn !=
+                          curr.isShowFacebookSignIn,
+                      builder: (context, state) {
+                        if (!state.isShowFacebookSignIn) {
+                          return const SizedBox.shrink();
+                        }
+                        return Column(
+                          children: [
+                            SizedBox(height: 16.h),
+                            SocialButton(
+                              icon: Assets.icons.icFacebook.image(
+                                width: 24.r,
+                                height: 24.r,
+                              ),
+                              label: 'Continue With Facebook',
+                              onPressed: () {},
+                            ),
+                          ],
+                        );
+                      },
                     ),
                     SizedBox(height: 32.h),
                   ],

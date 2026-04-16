@@ -23,6 +23,10 @@ import 'package:ecommerce_mobile_app/services/local/local_storage.dart'
     as _i801;
 import 'package:ecommerce_mobile_app/services/remote/firebase_service.dart'
     as _i527;
+import 'package:ecommerce_mobile_app/services/remote/notification_service.dart'
+    as _i405;
+import 'package:ecommerce_mobile_app/services/remote/remote_config_service.dart'
+    as _i180;
 import 'package:firebase_auth/firebase_auth.dart' as _i59;
 import 'package:firebase_messaging/firebase_messaging.dart' as _i892;
 import 'package:firebase_remote_config/firebase_remote_config.dart' as _i627;
@@ -66,10 +70,23 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i974.Logger>(() => thirdPartyModule.logger);
     gh.lazySingleton<_i701.AppLogger>(() => _i314.ConsoleAppLogger());
+    gh.lazySingleton<_i180.RemoteConfigService>(
+      () => _i180.RemoteConfigService(
+        gh<_i627.FirebaseRemoteConfig>(),
+        gh<_i701.AppLogger>(),
+      ),
+    );
     gh.lazySingleton<_i527.FirebaseService>(
       () => _i527.FirebaseService(
         gh<_i59.FirebaseAuth>(),
         gh<_i974.FirebaseFirestore>(),
+      ),
+    );
+    gh.factory<_i980.SignInCubit>(
+      () => _i980.SignInCubit(
+        gh<_i527.FirebaseService>(),
+        gh<_i180.RemoteConfigService>(),
+        gh<_i701.AppLogger>(),
       ),
     );
     gh.lazySingleton<_i801.LocalStorage>(
@@ -82,16 +99,20 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i963.SignUpCubit(gh<_i527.FirebaseService>(), gh<_i701.AppLogger>()),
     );
-    gh.factory<_i980.SignInCubit>(
-      () =>
-          _i980.SignInCubit(gh<_i527.FirebaseService>(), gh<_i701.AppLogger>()),
-    );
     gh.factory<_i977.HomeCubit>(
       () => _i977.HomeCubit(gh<_i527.FirebaseService>(), gh<_i701.AppLogger>()),
     );
     gh.factory<_i782.AddressCubit>(
       () => _i782.AddressCubit(
         gh<_i527.FirebaseService>(),
+        gh<_i701.AppLogger>(),
+      ),
+    );
+    gh.lazySingleton<_i405.NotificationService>(
+      () => _i405.NotificationService(
+        gh<_i892.FirebaseMessaging>(),
+        gh<_i163.FlutterLocalNotificationsPlugin>(),
+        gh<_i974.FirebaseFirestore>(),
         gh<_i701.AppLogger>(),
       ),
     );

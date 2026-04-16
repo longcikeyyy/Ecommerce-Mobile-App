@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:ecommerce_mobile_app/core/logging/app_logger.dart';
 import 'package:ecommerce_mobile_app/services/remote/firebase_service.dart';
+import 'package:ecommerce_mobile_app/services/remote/remote_config_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -9,9 +12,39 @@ import 'sign_in_state.dart';
 @injectable
 class SignInCubit extends Cubit<SignInState> {
   final FirebaseService _firebaseService;
+  final RemoteConfigService _remoteConfigService;
   final AppLogger _logger;
 
-  SignInCubit(this._firebaseService, this._logger) : super(const SignInState());
+  StreamSubscription<Set<String>>? _remoteConfigSubscription;
+
+  SignInCubit(this._firebaseService, this._remoteConfigService, this._logger)
+      : super(const SignInState()) {
+    _loadRemoteConfig();
+    _listenRemoteConfigUpdates();
+  }
+
+  void _loadRemoteConfig() {
+    emit(state.copyWith(
+      isShowFacebookSignIn:
+          _remoteConfigService.isShowContinueWithFBSignUpFeature,
+    ));
+  }
+
+  void _listenRemoteConfigUpdates() {
+    _remoteConfigSubscription =
+        _remoteConfigService.onConfigUpdated.listen((updatedKeys) {
+      if (updatedKeys
+          .contains(RemoteConfigKey.isShowContinueWithFBSignUpFeature)) {
+        _loadRemoteConfig();
+      }
+    });
+  }
+
+  @override
+  Future<void> close() {
+    _remoteConfigSubscription?.cancel();
+    return super.close();
+  }
 
   Future<void> signIn({
     required String email,

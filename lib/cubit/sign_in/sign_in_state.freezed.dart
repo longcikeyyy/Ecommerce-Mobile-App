@@ -20,6 +20,7 @@ mixin _$SignInState {
   bool get isLoading => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
   bool get isSuccess => throw _privateConstructorUsedError;
+  bool get isShowFacebookSignIn => throw _privateConstructorUsedError;
 
   /// Create a copy of SignInState
   /// with the given fields replaced by the non-null parameter values.
@@ -35,7 +36,12 @@ abstract class $SignInStateCopyWith<$Res> {
     $Res Function(SignInState) then,
   ) = _$SignInStateCopyWithImpl<$Res, SignInState>;
   @useResult
-  $Res call({bool isLoading, String errorMessage, bool isSuccess});
+  $Res call({
+    bool isLoading,
+    String errorMessage,
+    bool isSuccess,
+    bool isShowFacebookSignIn,
+  });
 }
 
 /// @nodoc
@@ -56,6 +62,7 @@ class _$SignInStateCopyWithImpl<$Res, $Val extends SignInState>
     Object? isLoading = null,
     Object? errorMessage = null,
     Object? isSuccess = null,
+    Object? isShowFacebookSignIn = null,
   }) {
     return _then(
       _value.copyWith(
@@ -70,6 +77,10 @@ class _$SignInStateCopyWithImpl<$Res, $Val extends SignInState>
             isSuccess: null == isSuccess
                 ? _value.isSuccess
                 : isSuccess // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            isShowFacebookSignIn: null == isShowFacebookSignIn
+                ? _value.isShowFacebookSignIn
+                : isShowFacebookSignIn // ignore: cast_nullable_to_non_nullable
                       as bool,
           )
           as $Val,
@@ -86,7 +97,12 @@ abstract class _$$SignInStateImplCopyWith<$Res>
   ) = __$$SignInStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, String errorMessage, bool isSuccess});
+  $Res call({
+    bool isLoading,
+    String errorMessage,
+    bool isSuccess,
+    bool isShowFacebookSignIn,
+  });
 }
 
 /// @nodoc
@@ -106,6 +122,7 @@ class __$$SignInStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? errorMessage = null,
     Object? isSuccess = null,
+    Object? isShowFacebookSignIn = null,
   }) {
     return _then(
       _$SignInStateImpl(
@@ -121,6 +138,10 @@ class __$$SignInStateImplCopyWithImpl<$Res>
             ? _value.isSuccess
             : isSuccess // ignore: cast_nullable_to_non_nullable
                   as bool,
+        isShowFacebookSignIn: null == isShowFacebookSignIn
+            ? _value.isShowFacebookSignIn
+            : isShowFacebookSignIn // ignore: cast_nullable_to_non_nullable
+                  as bool,
       ),
     );
   }
@@ -133,6 +154,7 @@ class _$SignInStateImpl implements _SignInState {
     this.isLoading = false,
     this.errorMessage = '',
     this.isSuccess = false,
+    this.isShowFacebookSignIn = true,
   });
 
   @override
@@ -144,10 +166,13 @@ class _$SignInStateImpl implements _SignInState {
   @override
   @JsonKey()
   final bool isSuccess;
+  @override
+  @JsonKey()
+  final bool isShowFacebookSignIn;
 
   @override
   String toString() {
-    return 'SignInState(isLoading: $isLoading, errorMessage: $errorMessage, isSuccess: $isSuccess)';
+    return 'SignInState(isLoading: $isLoading, errorMessage: $errorMessage, isSuccess: $isSuccess, isShowFacebookSignIn: $isShowFacebookSignIn)';
   }
 
   @override
@@ -160,12 +185,19 @@ class _$SignInStateImpl implements _SignInState {
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.isSuccess, isSuccess) ||
-                other.isSuccess == isSuccess));
+                other.isSuccess == isSuccess) &&
+            (identical(other.isShowFacebookSignIn, isShowFacebookSignIn) ||
+                other.isShowFacebookSignIn == isShowFacebookSignIn));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, isLoading, errorMessage, isSuccess);
+  int get hashCode => Object.hash(
+    runtimeType,
+    isLoading,
+    errorMessage,
+    isSuccess,
+    isShowFacebookSignIn,
+  );
 
   /// Create a copy of SignInState
   /// with the given fields replaced by the non-null parameter values.
@@ -181,6 +213,7 @@ abstract class _SignInState implements SignInState {
     final bool isLoading,
     final String errorMessage,
     final bool isSuccess,
+    final bool isShowFacebookSignIn,
   }) = _$SignInStateImpl;
 
   @override
@@ -189,6 +222,8 @@ abstract class _SignInState implements SignInState {
   String get errorMessage;
   @override
   bool get isSuccess;
+  @override
+  bool get isShowFacebookSignIn;
 
   /// Create a copy of SignInState
   /// with the given fields replaced by the non-null parameter values.
